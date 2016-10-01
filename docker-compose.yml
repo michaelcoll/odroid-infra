@@ -1,0 +1,20 @@
+version: "2"
+services:
+  plex:
+    image: michaelcoll/armhf-plex
+    ports:
+      - "32400:32400"
+    volumes:
+      - "/net/nfs/video:/media"
+      - "/net/nfs/config/plex-config:/config"
+  sonarr:
+    image: michaelcoll/michaelcoll/odroid-c2-sonarr
+    ports:
+      - "8989:8989"
+      - "9898:9898"
+    volumes:
+      - "/net/nfs/video:/volumes/media"
+      - "/net/nfs/downloads:/volumes/completed"
+      - "/net/nfs/config/sonarr-config:/volumes/config"
+    links:
+      - plex:plex
